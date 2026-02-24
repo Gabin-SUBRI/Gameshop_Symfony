@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Inscription - GameShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-500 min-h-screen flex items-center justify-center">
+
+    <div class="bg-blue-800 rounded-2xl p-8 w-full max-w-md shadow-2xl border border-blue-700">
+        <h1 class="text-4xl font-black text-white text-center mb-2">🎮 GameShop</h1>
+        <p class="text-blue-300 text-center mb-8 uppercase tracking-widest text-sm">Créer un compte</p>
+
+        {{ form_errors(registrationForm) }}
+
+        {{ form_start(registrationForm, {'attr': {'class': 'space-y-4'}}) }}
+
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Email</label>
+                {{ form_widget(registrationForm.email, {
+                    'attr': {
+                        'class': 'w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white',
+                        'placeholder': 'votre@email.com'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.email) }}
+            </div>
+
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Mot de passe</label>
+                {{ form_widget(registrationForm.plainPassword, {
+                    'attr': {
+                        'class': 'w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white',
+                        'placeholder': '••••••••'
+                    }
+                }) }}
+                {{ form_errors(registrationForm.plainPassword) }}
+            </div>
+
+            <div class="flex items-center gap-3">
+                {{ form_widget(registrationForm.agreeTerms, {
+                    'attr': {'class': 'w-5 h-5 accent-white'}
+                }) }}
+                <label class="text-blue-200 font-bold">J'accepte les conditions d'utilisation</label>
+                {{ form_errors(registrationForm.agreeTerms) }}
+            </div>
+
+            <button type="submit"
+                class="w-full bg-white text-blue-700 font-black py-3 rounded-full hover:bg-blue-100 transition-all text-lg mt-4">
+                S'inscrire →
+            </button>
+
+        {{ form_end(registrationForm) }}
+
+        <p class="text-blue-300 text-center mt-6">
+            Déjà un compte ?
+            <a href="{{ path('app_login') }}" class="text-white font-bold hover:underline">Se connecter</a>
+        </p>
+        <p class="text-center mt-3">
+            <a href="{{ path('app_home') }}" class="text-blue-400 hover:underline text-sm">← Retour à l'accueil</a>
+        </p>
+    </div>
+
+</body>
+</html>

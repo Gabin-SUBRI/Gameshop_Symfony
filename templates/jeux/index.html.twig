@@ -5,6 +5,31 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gradient-to-br from-blue-900 to-blue-500 min-h-screen p-8">
+{# Barre de navigation #}
+<div class="fixed top-4 left-4 flex items-center gap-3 z-50">
+    {% if app.user %}
+        <div class="bg-blue-800 rounded-full px-4 py-2 text-white font-bold border border-blue-600 shadow-lg">
+            👤 {{ app.user.email }}
+        </div>
+        <form method="post" action="{{ path('app_logout') }}">
+    <input type="hidden" name="_csrf_token" value="{{ csrf_token('logout') }}">
+    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-full font-bold hover:bg-red-400 transition-all shadow-lg">
+        Déconnexion
+    </button>
+</form>
+    {% else %}
+        <a href="{{ path('app_login') }}">
+            <button class="bg-white text-blue-700 px-4 py-2 rounded-full font-bold hover:bg-blue-100 transition-all shadow-lg">
+                Se connecter
+            </button>
+        </a>
+        <a href="{{ path('app_register') }}">
+            <button class="bg-blue-500 text-white px-4 py-2 rounded-full font-bold hover:bg-blue-400 transition-all shadow-lg">
+                S'inscrire
+            </button>
+        </a>
+    {% endif %}
+</div>
 
     <h1 class="text-5xl font-black text-center text-white mb-2 drop-shadow-lg">🎮 GameShop</h1>
     <p class="text-blue-200 text-center mb-10 tracking-widest uppercase text-sm">La boutique de jeux vidéo</p>
@@ -40,7 +65,7 @@
             <img class="h-48 w-full object-cover" src="{{ asset(jeu.image) }}" alt="{{ jeu.nom }}">
             <div class="p-4 text-center">
                 
-    <h3 class="font-black text-lg mb-1 hover:underline cursor-pointer">{{ jeu.nom }}</h3>
+    <h3 class="font-black text-lg mb-1">{{ jeu.nom }}</h3>
 
                 {% if jeu.prix == 0 %}
                     <p class="mb-1 text-green-400 font-bold">Gratuit</p>

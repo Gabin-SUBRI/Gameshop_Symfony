@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ jeu.nom }}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-500 min-h-screen p-8">
+
+    <div class="max-w-2xl mx-auto bg-blue-800 rounded-2xl overflow-hidden shadow-2xl text-white">
+        <img class="w-full h-72 object-cover" src="{{ asset(jeu.image) }}" alt="{{ jeu.nom }}">
+        <div class="p-8">
+            <span class="bg-blue-600 text-blue-200 text-sm font-bold px-3 py-1 rounded-full">{{ jeu.genre }}</span>
+            <h1 class="text-4xl font-black mt-4 mb-2">{{ jeu.nom }}</h1>
+            <p class="text-blue-200 text-lg mb-6">{{ jeu.description }}</p>
+            {% if jeu.prix == 0 %}
+                <p class="text-green-400 font-black text-2xl mb-6">Gratuit</p>
+            {% else %}
+                <p class="text-white font-black text-2xl mb-6">{{ jeu.prix }} €</p>
+            {% endif %}
+            <a href="{{ path('app_jeux') }}">
+                <button class="bg-white text-blue-700 px-6 py-3 rounded-full font-black hover:bg-blue-100 transition-all">← Retour à la boutique</button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

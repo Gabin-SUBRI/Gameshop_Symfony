@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Accueil</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-500 flex items-center justify-center min-h-screen flex-col gap-6">
+    
+    <div class="text-center">
+        <p class="text-blue-200 text-lg mb-2 tracking-widest uppercase">Bienvenue sur</p>
+        <h1 class="text-6xl font-black text-white mb-4 drop-shadow-lg">🎮 GameShop</h1>
+        <p class="text-blue-200 text-xl">Trouve et achète tes jeux préférés</p>
+    </div>
+
+    <a href="{{ path('app_jeux') }}">
+        <button class="bg-white text-blue-700 px-10 py-4 rounded-full font-black text-lg hover:bg-blue-100 hover:scale-105 transition-all duration-200 shadow-lg">
+            Voir la boutique →
+        </button>
+    </a>
+
+</body>
+</html>

@@ -50,7 +50,9 @@
             {% endfor %}
             <div class="border-t border-blue-700 mt-4 pt-4">
                 <p class="font-black text-lg mb-3">Total : {{ total }} €</p>
-                <button class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-400 w-full transition-all">💳 Payer</button>
+                <a href="{{ path('app_panier_payer') }}">
+    <button class="bg-green-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-400 w-full transition-all">💳 Payer</button>
+</a>
                 <a href="{{ path('app_panier_vider') }}">
                     <button class="bg-red-500 text-white px-4 py-2 rounded-lg font-bold hover:bg-red-400 w-full mt-2 transition-all">🗑️ Tout supprimer</button>
                 </a>
@@ -75,13 +77,22 @@
                 <a href="{{ path('app_jeux_detail', {'nom': jeu.nom}) }}">
                 <p class="text-blue-300 font-bold hover:underline p-2">Détails</p>
                 </a>
-                {% if jeu.nom in panier %}
-                    <button class="bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-bold cursor-not-allowed w-full" disabled>✓ Dans le panier</button>
-                {% else %}
-                    <a href="{{ path('app_panier_ajouter', {'nom': jeu.nom}) }}">
-                        <button class="bg-white text-blue-700 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 w-full transition-all">Ajouter au panier</button>
-                    </a>
-                {% endif %}
+                {% if jeu.stock == 0 %}
+    <button class="bg-red-900 text-red-300 px-4 py-2 rounded-lg font-bold cursor-not-allowed w-full" disabled>
+        Épuisé
+    </button>
+{% elseif jeu.nom in panier %}
+    <button class="bg-gray-600 text-gray-300 px-4 py-2 rounded-lg font-bold cursor-not-allowed w-full" disabled>
+        ✓ Dans le panier
+    </button>
+{% else %}
+    <p class="text-blue-300 text-sm mb-1">Stock : {{ jeu.stock }}</p>
+    <a href="{{ path('app_panier_ajouter', {'nom': jeu.nom}) }}">
+        <button class="bg-white text-blue-700 px-4 py-2 rounded-lg font-bold hover:bg-blue-100 w-full transition-all">
+            Ajouter au panier
+        </button>
+    </a>
+{% endif %}
             </div>
         </div>
     {% endfor %}

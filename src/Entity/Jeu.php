@@ -29,6 +29,9 @@ class Jeu
     #[ORM\Column(type: Types::TEXT)]
     private ?string $description = null;
 
+    #[ORM\Column]
+    private ?int $stock = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -93,4 +96,16 @@ class Jeu
 
         return $this;
     }
+
+    public function getStock(): ?int
+{
+    return $this->stock;
+}
+
+public function setStock(int $stock): static
+{
+    $this->stock = $stock;
+
+    return $this;
+}
 }

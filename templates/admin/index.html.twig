@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Admin - GameShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-500 min-h-screen p-8">
+
+    <div class="max-w-5xl mx-auto">
+        <h1 class="text-4xl font-black text-white mb-2">⚙️ Panel Admin</h1>
+        <p class="text-blue-300 mb-8">Connecté en tant que {{ app.user.email }}</p>
+
+        <a href="{{ path('app_admin_ajouter') }}">
+            <button class="bg-green-500 text-white px-6 py-3 rounded-full font-black hover:bg-green-400 transition-all mb-8">
+                + Ajouter un jeu
+            </button>
+        </a>
+
+        <div class="bg-blue-800 rounded-2xl overflow-hidden shadow-2xl border border-blue-700">
+            <table class="w-full text-white">
+                <thead class="bg-blue-900">
+                    <tr>
+                        <th class="p-4 text-left">Nom</th>
+                        <th class="p-4 text-left">Prix</th>
+                        <th class="p-4 text-left">Genre</th>
+                        <th class="p-4 text-left">Stock</th>
+                        <th class="p-4 text-left">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for jeu in jeux %}
+                    <tr class="border-t border-blue-700 hover:bg-blue-700 transition-all">
+                        <td class="p-4 font-bold">{{ jeu.nom }}</td>
+                        <td class="p-4">{{ jeu.prix == 0 ? 'Gratuit' : jeu.prix ~ ' €' }}</td>
+                        <td class="p-4">{{ jeu.genre }}</td>
+                        <td class="p-4">
+                            {% if jeu.stock == 0 %}
+                                <span class="bg-red-500 px-2 py-1 rounded-full text-xs font-bold">Épuisé</span>
+                            {% else %}
+                                <span class="bg-green-500 px-2 py-1 rounded-full text-xs font-bold">{{ jeu.stock }}</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-4 flex gap-2">
+                            <a href="{{ path('app_admin_supprimer', {'id': jeu.id}) }}"
+                               onclick="return confirm('Supprimer {{ jeu.nom }} ?')">
+                                <button class="bg-red-500 text-white px-3 py-1 rounded-lg font-bold hover:bg-red-400 text-sm">
+                                    🗑️ Supprimer
+                                </button>
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="text-center mt-8">
+            <a href="{{ path('app_jeux') }}">
+                <button class="bg-white text-blue-700 px-6 py-3 rounded-full font-black hover:bg-blue-100 transition-all">
+                    ← Retour à la boutique
+                </button>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>

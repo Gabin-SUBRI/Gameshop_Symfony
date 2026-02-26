@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ajouter un jeu - GameShop</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-br from-blue-900 to-blue-500 min-h-screen flex items-center justify-center p-8">
+
+    <div class="bg-blue-800 rounded-2xl p-8 w-full max-w-lg shadow-2xl border border-blue-700">
+        <h1 class="text-3xl font-black text-white mb-6">➕ Ajouter un jeu</h1>
+
+        <form method="post" enctype="multipart/form-data" class="space-y-4">
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Nom</label>
+                <input type="text" name="nom" required
+                    class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white">
+            </div>
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Prix (0 pour gratuit)</label>
+                <input type="number" name="prix" step="0.01" min="0" required
+                    class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white">
+            </div>
+            <div>
+    <label class="text-blue-200 font-bold block mb-2">Image</label>
+    <input type="file" name="image" accept="image/*" required
+        class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white">
+</div>
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Genre</label>
+                <input type="text" name="genre" required
+                    class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white">
+            </div>
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Description</label>
+                <textarea name="description" required rows="3"
+                    class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white"></textarea>
+            </div>
+            <div>
+                <label class="text-blue-200 font-bold block mb-2">Stock</label>
+                <input type="number" name="stock" min="0" required
+                    class="w-full bg-blue-900 text-white rounded-lg px-4 py-3 border border-blue-600 focus:outline-none focus:border-white">
+            </div>
+
+            <button type="submit"
+                class="w-full bg-green-500 text-white font-black py-3 rounded-full hover:bg-green-400 transition-all text-lg mt-4">
+                ➕ Ajouter le jeu
+            </button>
+        </form>
+
+        <div class="text-center mt-4">
+            <a href="{{ path('app_admin') }}" class="text-blue-300 hover:underline">← Retour au panel admin</a>
+        </div>
+    </div>
+
+</body>
+</html>

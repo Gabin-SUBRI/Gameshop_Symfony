@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y git unzip zip && \
 
 COPY . .
 
-RUN composer install --no-dev --optimize-autoloader
+RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 RUN php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration || true
 

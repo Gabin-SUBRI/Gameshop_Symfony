@@ -1,5 +1,10 @@
 [phases.build]
 cmds = ["composer install --no-dev --optimize-autoloader", "php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration"]
 
+[variables]
+SERVER_NAME=":$PORT"
+FRANKENPHP_CONFIG="worker ./public/index.php"
+APP_RUNTIME="Runtime\\FrankenPhpSymfony\\Runtime"
+
 [start]
-cmd = "php bin/console server:start 0.0.0.0:$PORT --no-debug || php -S 0.0.0.0:$PORT -t public"
+cmd = "frankenphp run --config /Caddyfile"

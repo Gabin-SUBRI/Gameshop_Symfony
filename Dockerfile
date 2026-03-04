@@ -12,4 +12,6 @@ RUN composer install --no-dev --optimize-autoloader --no-scripts
 
 EXPOSE 8000
 
-CMD php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && php -S 0.0.0.0:$PORT -t public
+CMD php bin/console doctrine:migrations:migrate --no-interaction --allow-no-migration && \
+    php bin/console doctrine:fixtures:load --no-interaction --append && \
+    php -S 0.0.0.0:$PORT -t public

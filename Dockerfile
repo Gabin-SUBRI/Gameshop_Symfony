@@ -1,5 +1,6 @@
 FROM php:8.4-cli
 
+# cache bust 2026-03-04
 WORKDIR /app
 
 RUN apt-get update && apt-get install -y git unzip zip && \

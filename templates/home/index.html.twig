@@ -3,8 +3,201 @@
 <head>
     <title>Accueil</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+.wp-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 20, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  padding: 20px;
+  backdrop-filter: blur(4px);
+  animation: wpFadeIn .25s ease;
+}
+
+.wp-overlay.wp-hidden {
+  display: none;
+}
+
+@keyframes wpFadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+.wp-box {
+  background: #ffffff;
+  border-radius: 18px;
+  max-width: 460px;
+  width: 100%;
+  padding: 36px 32px 28px;
+  border: 1px solid rgba(0,0,0,0.08);
+  animation: wpSlideUp .3s cubic-bezier(.22,1,.36,1);
+  font-family: system-ui, -apple-system, sans-serif;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+}
+
+@keyframes wpSlideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.wp-icon {
+  font-size: 38px;
+  margin-bottom: 14px;
+  display: block;
+}
+
+.wp-box h2 {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  color: #111827;
+}
+
+.wp-box p {
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+  margin-bottom: 12px;
+}
+
+.wp-box ul {
+  padding-left: 18px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.9;
+  margin-bottom: 18px;
+}
+
+.wp-box ul li::marker {
+  color: #7c3aed;
+}
+
+.wp-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.wp-tag {
+  background: #f3f0ff;
+  color: #6d28d9;
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.wp-sep {
+  height: 1px;
+  background: #eee;
+  margin: 18px 0;
+}
+
+.wp-check-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.wp-check-row input[type="checkbox"] {
+  width: 17px;
+  height: 17px;
+  accent-color: #7c3aed;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.wp-check-row label {
+  font-size: 13px;
+  color: #777;
+  cursor: pointer;
+}
+
+.wp-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  background: linear-gradient(135deg, #7c3aed, #6d28d9);
+  color: #fff;
+  border: none;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: transform .15s ease, opacity .15s ease;
+  letter-spacing: .01em;
+}
+
+.wp-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.95;
+}
+</style>
 </head>
 <body class="bg-gradient-to-br from-blue-900 to-blue-500 flex items-center justify-center min-h-screen flex-col gap-6">
+
+
+{# Popup GameShop #}
+
+<div class="wp-overlay" id="wp-popup">
+  <div class="wp-box">
+
+    <span class="wp-icon">🎮</span>
+
+    <h2>Bienvenue sur GameShop</h2>
+
+    <p>
+      Découvrez une application e-commerce de jeux vidéo développée avec Symfony.
+      Ce projet scolaire reproduit une boutique moderne avec catalogue,
+      gestion des utilisateurs et système d'achat.
+    </p>
+
+    <ul>
+      <li>Catalogue dynamique de jeux vidéo</li>
+      <li>Système d'authentification utilisateur</li>
+      <li>Panier et processus d'achat complet</li>
+      <li>Base de données MySQL connectée à Symfony</li>
+    </ul>
+
+    <div class="wp-stack">
+      <span class="wp-tag">Symfony</span>
+      <span class="wp-tag">PHP</span>
+      <span class="wp-tag">MySQL</span>
+      <span class="wp-tag">Railway</span>
+    </div>
+
+    <p style="font-size:12px; color:#999;">
+      Projet réalisé dans le cadre de ma formation pour mettre en pratique
+      le développement back-end et la création d'une plateforme e-commerce.
+    </p>
+
+    <div class="wp-sep"></div>
+
+    <div class="wp-check-row">
+      <input type="checkbox" id="wp-remember" />
+      <label for="wp-remember">Ne plus afficher ce message</label>
+    </div>
+
+    <button class="wp-btn" id="wp-btn-ok">
+      Voir le projet →
+    </button>
+
+  </div>
+</div>
+
+
+    
     
     <div class="text-center">
         <p class="text-blue-200 text-lg mb-2 tracking-widest uppercase">Bienvenue sur</p>
@@ -19,4 +212,43 @@
     </a>
 
 </body>
+<!-- ─── SCRIPT ────────────────────────────────────────────────── -->
+
+<script>
+(function () {
+
+  // ID unique du popup
+  var POPUP_ID = "popup_gameshop_v1";
+
+  var overlay  = document.getElementById("wp-popup");
+  var checkbox = document.getElementById("wp-remember");
+  var btn      = document.getElementById("wp-btn-ok");
+
+  // Vérifie si déjà vu
+  if (localStorage.getItem(POPUP_ID) === "seen") {
+    overlay.classList.add("wp-hidden");
+  }
+
+  // Fermeture bouton
+  btn.addEventListener("click", function () {
+
+    if (checkbox.checked) {
+      localStorage.setItem(POPUP_ID, "seen");
+    }
+
+    overlay.classList.add("wp-hidden");
+
+  });
+
+  // Fermeture au clic extérieur
+  overlay.addEventListener("click", function (e) {
+
+    if (e.target === overlay) {
+      overlay.classList.add("wp-hidden");
+    }
+
+  });
+
+})();
+</script>
 </html>
